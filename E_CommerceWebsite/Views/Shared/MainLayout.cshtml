@@ -1,0 +1,203 @@
+﻿@{
+    ViewData["Title"] = "MainLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Website</title>
+    <style>
+        /* General Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            max-width: 100%; /* Remove centering effect */
+        }
+
+        .logo a {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+            nav ul li a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 18px;
+                transition: color 0.3s ease;
+            }
+
+                nav ul li a:hover {
+                    color: #ff6600;
+                }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px;
+            min-height: 500px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+            .footer-section h3 {
+                font-size: 18px;
+                color: #ff6600;
+                margin-bottom: 10px;
+            }
+
+            .footer-section p {
+                font-size: 14px;
+                color: #ccc;
+                margin: 5px 0;
+            }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #888;
+            border-top: 1px solid #444;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                @* <a href="/">MyStore</a> *@
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container">
+                        <a href="/" class="navbar-brand">
+                            <i class="fas fa-shopping-cart"></i> MyStore
+                        </a>
+                    </div>
+                </nav>
+
+
+            </div>
+            <div class="header-right">
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/Cart">Cart</a></li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <span class="nav-link text-white">Hi, @User.Identity.Name</span>
+                            </li>
+                            <li>
+                                <form method="post" asp-controller="User" asp-action="Logout" style="display: inline;">
+                                    <button type="submit" class="btn btn-outline-light">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a href="/User/Register">Sign Up</a></li>
+                            <li><a href="/User/Login">Sign In</a></li>
+                        }
+                        @* <li><a href="/User/Register">Sign Up</a></li> *@
+                        @* <li><a href="/User/Login">Sign In</a></li> *@
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Your trusted online store for quality products.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@mystore.com</p>
+                    <p>Phone: +123 456 7890</p>
+                    <p>Address: 123, Kochi, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2025 MyStore. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

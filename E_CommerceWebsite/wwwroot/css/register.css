@@ -1,0 +1,80 @@
+﻿
+
+body {
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    background-color: #fff;
+    padding: 30px; /* Increased padding for better spacing */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Increased shadow for better depth */
+    width: 100%;
+    max-width: 450px; /* Increased max-width */
+    margin: 30px auto; /* More space around the form */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Increased margin for more spacing */
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input, select, button {
+    width: calc(100% - 12px); /* Reduced width slightly to avoid touching edges */
+    padding: 12px; /* Increased padding for better clickability */
+    margin-top: 8px; /* Increased top margin */
+    border: 1px solid #ccc;
+    border-radius: 6px; /* Slightly larger border radius */
+    box-sizing: border-box;
+}
+
+    input:focus, select:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+button {
+    background-color: #28a745; /* Green color */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 12px; /* Increased padding */
+    border-radius: 6px;
+}
+
+    button:hover {
+        background-color: #218838;
+    }
+
+.alert {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.text-danger {
+    font-size: 14px;
+}

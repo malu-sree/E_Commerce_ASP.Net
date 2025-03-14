@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Welcome to My Store</h2>
+
+@if (Context.Session.GetString("UserName") != null)
+{
+    <p>Hello, @Context.Session.GetString("UserName")!</p>
+    <a asp-controller="User" asp-action="Logout" class="btn btn-danger">Logout</a>
+}
+else
+{
+    <a asp-controller="User" asp-action="Login" class="btn btn-warning">Login</a>
+}

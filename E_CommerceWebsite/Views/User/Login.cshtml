@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/register.css" />
+
+<h1>Login</h1>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" name="email" required />
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" required />
+    </div>
+
+    @* <button type="submit" class="btn btn-warning">Login</button> *@
+
+    <button type="submit" class="btn mt-2" style="
+    background-color: #fd7e14; /* Orange color */
+    color: white;
+    font-size: 14px; /* Reduced font size */
+    padding: 10px 16px; /* Adjusted padding */
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;">
+       Login
+</form>
+
