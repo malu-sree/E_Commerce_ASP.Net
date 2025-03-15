@@ -16,30 +16,30 @@ namespace E_CommerceWebsite.Models.Repository
 
         public bool RegisterUser(User user)
         {
-            SqlConnection conn = null;
+            SqlConnection connection = null;
             try
             {
-                conn = new SqlConnection(_connectionString);
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand("sp_RegisterUser", conn))
+                connection = new SqlConnection(_connectionString);
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("sp_RegisterUser", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Name", user.Name);
-                    cmd.Parameters.AddWithValue("@Email", user.Email);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
-                    cmd.Parameters.AddWithValue("@Address", user.Address);
-                    cmd.Parameters.AddWithValue("@Password", PasswordHelper.HashPassword(user.Password)); // Hashing password
-                    cmd.Parameters.AddWithValue("@Role", user.Role);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Name", user.Name);
+                    command.Parameters.AddWithValue("@Email", user.Email);
+                    command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+                    command.Parameters.AddWithValue("@Address", user.Address);
+                    command.Parameters.AddWithValue("@Password", PasswordHelper.HashPassword(user.Password)); // Hashing password
+                    command.Parameters.AddWithValue("@Role", user.Role);
 
-                    int result = cmd.ExecuteNonQuery();
+                    int result = command.ExecuteNonQuery();
                     return result > 0;
                 }
             }
             finally
             {
-                if (conn != null && conn.State == ConnectionState.Open)
+                if (connection != null && connection.State == ConnectionState.Open)
                 {
-                    conn.Close();
+                    connection.Close();
                 }
             }
         }
@@ -73,19 +73,79 @@ namespace E_CommerceWebsite.Models.Repository
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}"); // Log the exception
-                return null;
-            }
+            
             finally
             {
                 if (connection != null && connection.State == ConnectionState.Open)
                 {
-                    connection.Close(); // Ensure the connection is closed
+                    connection.Close(); 
                 }
             }
-            return null; // No user found
+            return null; 
+        }
+
+        public List<User> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("sp_GetAllUsers", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                users.Add(new User
+                                {
+                                    Id = Convert.ToInt32(reader["Id"]),
+                                    Name = reader["Name"].ToString(),
+                                    Email = reader["Email"].ToString(),
+                                    PhoneNumber = reader["Phone"].ToString(),
+                                    Address = reader["Address"].ToString(),
+
+                                });
+                            }
+                        }
+                    }
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return users;
+        }
+
+        public bool DeleteUser(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand("spDeleteUser", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@Id", id);
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
         }
 
 

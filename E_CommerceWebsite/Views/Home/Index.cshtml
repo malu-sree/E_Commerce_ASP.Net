@@ -7,6 +7,16 @@
 @if (Context.Session.GetString("UserName") != null)
 {
     <p>Hello, @Context.Session.GetString("UserName")!</p>
+
+    @if (Context.Session.GetString("UserRole") == "Admin")
+    {
+        <a asp-controller="AdminDashboard" asp-action="Index" class="btn btn-primary">Go to Admin Dashboard</a>
+    }
+
+    else if (Context.Session.GetString("UserRole") == "User")
+    {
+        <a asp-controller="UserDashboard" asp-action="Index" class="btn btn-info">Go to User Dashboard</a>
+    }
     <a asp-controller="User" asp-action="Logout" class="btn btn-danger">Logout</a>
 }
 else

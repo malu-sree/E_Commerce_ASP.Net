@@ -17,6 +17,7 @@ builder.Services.AddSession(options =>
 
 //var connectionString = builder.Configuration.GetConnectionString("EcommerceDBConnection");
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<ProductRepository>();
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
