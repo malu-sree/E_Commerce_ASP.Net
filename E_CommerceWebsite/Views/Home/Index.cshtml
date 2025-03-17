@@ -16,6 +16,8 @@
     else if (Context.Session.GetString("UserRole") == "User")
     {
         <a asp-controller="UserDashboard" asp-action="Index" class="btn btn-info">Go to User Dashboard</a>
+        <a asp-controller="UserDashboard" asp-action="EditProfile" asp-route-id="@Context.Session.GetInt32("UserId")" class="btn btn-warning">Edit Profile</a>
+    
     }
     <a asp-controller="User" asp-action="Logout" class="btn btn-danger">Logout</a>
 }

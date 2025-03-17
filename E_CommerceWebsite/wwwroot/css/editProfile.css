@@ -1,0 +1,81 @@
+﻿/* Styling the form container */
+.form-container {
+    background-color: #f8f9fa; /* Light background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+/* Styling the form labels */
+.form-group label {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Styling the form inputs */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #ff7f00;
+        box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
+        outline: none;
+    }
+
+/* Styling the Save Changes button */
+.btn-save {
+    background-color: #ff7f00; /* Orange color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-save:hover {
+        background-color: #e67300; /* Darker orange */
+    }
+
+/* Styling the Cancel button */
+.btn-cancel {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-cancel:hover {
+        background-color: #5a6268; /* Darker secondary */
+    }
+
+/* Styling for validation messages */
+.text-danger {
+    font-size: 14px;
+}
+
+/* Margin between form elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Styling for headings */
+h2 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}

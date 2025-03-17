@@ -5,5 +5,38 @@
 }
 
 <h2>Welcome, @ViewData["UserName"]!</h2>
-<p>This is the User Dashboard.</p>
 
+<link rel="stylesheet" href="~/css/productList.css" />
+
+
+
+<div class="product-container">
+    @foreach (var product in Model)
+    {
+        <div class="product-card">
+            <div class="product-image">
+                <img src="data:image/png;base64,@product.Image" alt="@product.Name" />
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="fw-bold text-primary fs-5">₹@product.Price</p>
+            </div>
+
+          
+            <div class="card-footer" style="padding: 10px; background-color: #f8f9fa; border-top: 1px solid #e1e1e1; text-align: center;">
+                <a asp-controller="UserDashboard" asp-action="Details" asp-route-id="@product.ProductId"
+                   class="btn"
+                   style="background-color: #17a2b8; color: #ffffff; border-color: #17a2b8; border-radius: 6px; font-size: 16px; font-weight: 500; padding: 8px 16px; display: inline-block; transition: background-color 0.3s ease;text-decoration: none;"
+                   onmouseover="this.style.backgroundColor='#138496'; this.style.borderColor='#117a8b';"
+                   onmouseout="this.style.backgroundColor='#17a2b8'; this.style.borderColor='#17a2b8';">
+                    View Details
+                </a>
+            </div>
+
+            @* <div class="card-footer"> *@
+            @*     <button class="btn btn-success">Add to Cart</button> *@
+            @* </div> *@
+        </div>
+    }
+</div>

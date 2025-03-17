@@ -50,7 +50,6 @@ namespace E_CommerceWebsite.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "An error occurred while processing your request.";
-                // Log the exception details (e.g., using a logger)
                 Console.WriteLine($"Error: {ex.Message}");
                 return View(user);
             }
@@ -81,7 +80,8 @@ namespace E_CommerceWebsite.Controllers
         {
             new Claim(ClaimTypes.Name, user.Name),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
+            new Claim(ClaimTypes.Role, user.Role),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -89,6 +89,7 @@ namespace E_CommerceWebsite.Controllers
 
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+                    HttpContext.Session.SetInt32("UserId", user.Id);
                     HttpContext.Session.SetString("UserName", user.Name);
                     HttpContext.Session.SetString("UserEmail", user.Email);
                     HttpContext.Session.SetString("UserRole", user.Role);
@@ -123,16 +124,12 @@ namespace E_CommerceWebsite.Controllers
             }
         }
 
-        //public IActionResult Logout()
-        //{
-        //    HttpContext.Session.Clear(); 
-        //    return RedirectToAction("Index", "Home");
-        //}
+       
 
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear(); // Clear session data
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); // Sign out user
+            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); 
             return RedirectToAction("Index", "Home");
         }
 
