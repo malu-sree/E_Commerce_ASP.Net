@@ -28,11 +28,24 @@
                 <span class="text-danger">Out of Stock</span>
             }
         </p>
+       
+
         @if (Model.Quantity > 0)
         {
-            <form method="post" asp-action="AddToCart" asp-controller="Cart">
+            <form id="addToCartForm" method="post" asp-action="AddToCart" asp-controller="Cart">
                 <input type="hidden" name="productId" value="@Model.ProductId" />
-                <button type="submit" class="btn btn-success">Add to Cart</button>
+
+               
+                <div class="form-group">
+                    <label for="quantity" class="quantity-label">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control quantity-input" value="1" min="1" max="@Model.Quantity" required />
+                </div>
+                <br/>
+                
+                <button type="submit" class="btn" style="background-color: #28a745; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; text-decoration: none;">
+                    Add to Cart
+                </button>
+
             </form>
         }
         else
@@ -41,3 +54,9 @@
         }
     </div>
 </div>
+<script>
+    
+    document.getElementById('addToCartForm').addEventListener('submit', function () {
+        document.querySelector('button[type="submit"]').disabled = true;
+    });
+</script>

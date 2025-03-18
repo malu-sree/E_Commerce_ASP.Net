@@ -154,7 +154,9 @@
                 <nav>
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/Cart">Cart</a></li>
+                        @* <li><a href="/Cart">Cart</a></li> *@
+                        <li><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+
 
                         @if (User.Identity.IsAuthenticated)
                         {

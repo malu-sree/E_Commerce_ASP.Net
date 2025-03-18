@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "My Cart";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/cart.css" />
+<h2>My Cart</h2>
+
+
+<div class="cart-container">
+  
+    <div class="cart-summary">
+        <p><strong>Total Amount to be paid:</strong> ₹@ViewBag.TotalCartPrice</p>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+
+   
+    <div class="cart-items">
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="cart-item">
+                    <img src="data:image/png;base64,@item.Product.Image" alt="@item.Product.Name" />
+                    <div class="cart-details">
+                        <p><strong>@item.Product.Name</strong></p>
+                        <p>Price: ₹@item.Product.Price</p>
+                        <p>Quantity: @item.Quantity</p>
+                        <p><strong>Total Price:</strong> ₹@item.TotalPrice</p>
+                     
+                        <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                            <input type="hidden" name="cartId" value="@item.CartId" />
+                            <button type="submit" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;">
+                                Remove
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Your cart is empty!</p>
+        }
+    </div>
+</div>

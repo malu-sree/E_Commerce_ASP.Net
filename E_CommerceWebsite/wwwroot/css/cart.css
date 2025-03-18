@@ -1,0 +1,89 @@
+﻿/* Container to hold the total price and cart items */
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Total Price Section */
+.cart-summary {
+    width: 30%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+    .cart-summary p {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+.checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+    .checkout-btn:hover {
+        background-color: #45a049;
+    }
+
+/* Cart Items Section */
+.cart-items {
+    width: 65%; /* Takes up remaining space */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+    .cart-item img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+.cart-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+}
+
+    .cart-details p {
+        margin: 0;
+        font-size: 16px;
+        color: #555;
+    }
+
+@media (max-width: 768px) {
+    .cart-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cart-summary,
+    .cart-items {
+        width: 100%;
+    }
+}

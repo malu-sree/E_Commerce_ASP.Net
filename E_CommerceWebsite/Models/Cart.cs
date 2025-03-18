@@ -18,6 +18,6 @@ namespace E_CommerceWebsite.Models
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
-
+        public decimal TotalPrice { get; set; }
     }
 }
