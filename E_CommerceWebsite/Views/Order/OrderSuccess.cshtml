@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Order Success";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="text-center">
+    <h2 class="text-success">Order Placed Successfully!</h2>
+    <p>Your order has been placed successfully. Thank you for shopping with us!</p>
+
+    @if (TempData["OrderId"] != null)
+    {
+        <p><strong>Order ID:</strong> @TempData["OrderId"]</p>
+    }
+
+    <a asp-action="Index" asp-controller="Home" class="btn btn-primary mt-3">Continue Shopping</a>
+</div>
+@section Scripts {
+    <!-- Optional: Add scripts if needed -->
+}

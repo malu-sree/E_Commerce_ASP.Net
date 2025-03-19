@@ -10,7 +10,10 @@
   
     <div class="cart-summary">
         <p><strong>Total Amount to be paid:</strong> ₹@ViewBag.TotalCartPrice</p>
-        <button class="checkout-btn">Proceed to Checkout</button>
+        @* <button class="checkout-btn">Proceed to Checkout</button> *@
+        <form asp-action="Checkout" asp-controller="Order" method="get">
+            <button type="submit" class="checkout-btn">Proceed to Checkout</button>
+        </form>
     </div>
 
    

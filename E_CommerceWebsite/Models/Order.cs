@@ -5,11 +5,13 @@ namespace E_CommerceWebsite.Models
 {
     public class Order
     {
+       
+    }
+
+    public class OrderItem
+    {
         [Key]
-        public int OrderId { get; set; }
-        [Required]
-        public int UsertId { get; set; }
-        [Required]
+       
 
     }
 }

@@ -19,6 +19,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<CartRepository>();
+builder.Services.AddScoped<OrderRepository>();
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

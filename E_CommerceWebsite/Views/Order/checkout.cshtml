@@ -1,0 +1,49 @@
+﻿@model E_CommerceWebsite.Models.Order
+
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2>Checkout</h2>
+
+@if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form asp-action="PlaceOrder" asp-controller="Order" method="post" class="checkout-form">
+    <div class="form-group">
+        <label asp-for="FullName">Full Name</label>
+        <input asp-for="FullName" class="form-control" placeholder="Enter your full name" required />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber">Phone Number</label>
+        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number" required />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address">Address</label>
+        <textarea asp-for="Address" class="form-control" placeholder="Enter your address" required></textarea>
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PaymentMethod">Payment Method</label>
+        <select asp-for="PaymentMethod" class="form-control" required>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Cash on Delivery">Cash on Delivery</option>
+        </select>
+        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Place Order</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
