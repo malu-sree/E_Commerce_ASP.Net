@@ -1,0 +1,44 @@
+﻿@* @model E_CommerceWebsite.Models.Order *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Create Order"; *@
+@*     Layout = "~/Views/Shared/MainLayout.cshtml"; *@
+@* } *@
+
+@* <h2>Create Order</h2> *@
+
+@* <form asp-action="CreateOrder" method="post"> *@
+@*     <div class="mb-3"> *@
+@*         <label class="form-label">Address</label> *@
+@*         <input asp-for="Address" class="form-control" required /> *@
+@*     </div> *@
+
+@*     <div class="mb-3"> *@
+@*         <label class="form-label">Total Amount</label> *@
+@*         <input asp-for="TotalPrice" class="form-control" readonly /> *@
+@*     </div> *@
+
+@*     <div class="mb-3"> *@
+@*         <label class="form-label">Payment Method</label> *@
+@*         <input asp-for="PaymentMethod" class="form-control" required /> *@
+@*     </div> *@
+
+@*     <h4>Order Items</h4> *@
+@*     <div> *@
+@*         @for (int i = 0; i < Model.OrderItems.Count; i++) *@
+@*         { *@
+@*             <div> *@
+@*                 <label>Product ID:</label> *@
+@*                 <input asp-for="OrderItems[i].ProductId" class="form-control" readonly /> *@
+
+@*                 <label>Quantity:</label> *@
+@*                 <input asp-for="OrderItems[i].Quantity" class="form-control" readonly /> *@
+
+@*                 <label>Price:</label> *@
+@*                 <input asp-for="OrderItems[i].Price" class="form-control" readonly /> *@
+@*             </div> *@
+@*         } *@
+@*     </div> *@
+
+@*     <button type="submit" class="btn btn-primary">Place Order</button> *@
+@* </form> *@

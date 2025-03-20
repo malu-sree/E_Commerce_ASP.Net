@@ -9,61 +9,73 @@ namespace E_CommerceWebsite.Controllers
     public class OrderController : Controller
     {
         private readonly OrderRepository _orderRepository;
-
-        public OrderController(OrderRepository orderRepository)
+        private readonly OrderItemRepository _orderItemRepository;
+        private readonly CartRepository _cartRepository;
+        public OrderController(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CartRepository cartRepository)
         {
             _orderRepository = orderRepository;
+            _orderItemRepository = orderItemRepository;
+            _cartRepository = cartRepository;
         }
-
         [HttpGet]
-        public IActionResult Checkout()
+        public IActionResult Create()
         {
-            int? userId = HttpContext.Session.GetInt32("UserId");
+            var userId = HttpContext.Session.GetInt32("UserId");
 
             if (userId == null)
             {
-                // If user is not logged in, redirect to login
+                TempData["ErrorMessage"] = "Please log in to place an order.";
                 return RedirectToAction("Login", "User");
             }
 
-            var order = new Order
-            {
-                UserId = userId.Value
-            };
-
-            return View(order);
+            return View(new Order());
         }
 
-        // Step 2: POST Place Order
-        [HttpPost]
-        public IActionResult PlaceOrder(Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                var placedOrder = _orderRepository.PlaceOrder(order);
+        //[HttpPost]
+        //public IActionResult Create(Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _orderRepository.CreateOrder(order);
+        //        TempData["SuccessMessage"] = "Order placed successfully!";
+        //        return RedirectToAction("Create");
+        //    }
 
-                if (placedOrder != null && placedOrder.OrderId > 0)
-                {
-                    TempData["SuccessMessage"] = $"Order placed successfully! Order ID: {placedOrder.OrderId}";
-                    return RedirectToAction("OrderSuccess", new { id = placedOrder.OrderId });
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Failed to place order. Please try again.");
-                }
+        //    return View(order);
+        //}
+
+        [HttpPost]
+        public IActionResult Create(Order order)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+            {
+                TempData["ErrorMessage"] = "Please log in to place an order.";
+                return RedirectToAction("Login", "User");
             }
 
-            return View("Checkout", order);
-        }
+            order.UserId = userId.Value;
 
-        // Step 3: GET Order Success Page
-        [HttpGet]
-        public IActionResult OrderSuccess(int id)
-        {
-            var order = new Order
+            Console.WriteLine($"UserId: {order.UserId}");
+            Console.WriteLine($"Address: {order.Address}");
+            Console.WriteLine($"PaymentMethod: {order.PaymentMethod}");
+            Console.WriteLine($"Status: {order.Status}");
+            Console.WriteLine($"ModelState.IsValid: {ModelState.IsValid}");
+
+            if (ModelState.IsValid)
             {
-                OrderId = id
-            };
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Console.WriteLine($"Key: {state.Key}, Error: {error.ErrorMessage}");
+                    }
+                }
+                _orderRepository.CreateOrder(order);
+                TempData["SuccessMessage"] = "Order placed successfully!";
+                return RedirectToAction("Create");
+            }
 
             return View(order);
         }
