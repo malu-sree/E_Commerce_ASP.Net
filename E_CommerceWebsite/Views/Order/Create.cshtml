@@ -4,6 +4,8 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
+<link rel="stylesheet" href="~/css/order.css" />
+
 
 <h2>Place Order</h2>
 
@@ -15,7 +17,11 @@
 }
 
 <form asp-action="Create" method="post" class="mt-4">
+    @Html.AntiForgeryToken()
 
+
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Status" value="Processing" />
     <div class="mb-3">
         <label asp-for="Address" class="form-label">Address</label>
         <input asp-for="Address" class="form-control" required />
@@ -34,5 +40,9 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Place Order</button>
+    @* <button type="submit" class="btn btn-primary">Place Order</button> *@
+    <button type="submit" class="btn btn-primary" style="background-color: orange; border-color: orange; color: white;">
+        Place Order
+    </button>
+
 </form>

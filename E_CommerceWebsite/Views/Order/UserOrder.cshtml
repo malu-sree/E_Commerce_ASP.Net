@@ -1,0 +1,49 @@
+﻿@model List<E_CommerceWebsite.Models.Order>
+
+@{
+    ViewData["Title"] = "UserOrder";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/OrderList.css" />
+
+<h2 class="page-title">Your Orders</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="order-list-container">
+        @foreach (var order in Model)
+        {
+            <div class="order-card">
+                <div class="order-info">
+                    <p><strong>Order ID:</strong> <span class="text-primary">@order.OrderId</span></p>
+                    <p><strong>Address:</strong> @order.Address</p>
+                    <p><strong>Payment Method:</strong> @order.PaymentMethod</p>
+                    <p>
+                        <strong>Status:</strong>
+                        @if (order.Status == "Completed")
+                        {
+                            <span class="badge-success">@order.Status</span>
+                        }
+                        else if (order.Status == "Processing")
+                        {
+                            <span class="badge-warning">@order.Status</span>
+                        }
+                        else if (order.Status == "Cancelled")
+                        {
+                            <span class="badge-danger">@order.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge-secondary">@order.Status</span>
+                        }
+                    </p>
+                    <p><strong>Order Date:</strong> @order.CreatedAt.ToString("dd MMM yyyy")</p>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">No orders found.</div>
+}

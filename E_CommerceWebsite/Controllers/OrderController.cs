@@ -31,19 +31,6 @@ namespace E_CommerceWebsite.Controllers
             return View(new Order());
         }
 
-        //[HttpPost]
-        //public IActionResult Create(Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _orderRepository.CreateOrder(order);
-        //        TempData["SuccessMessage"] = "Order placed successfully!";
-        //        return RedirectToAction("Create");
-        //    }
-
-        //    return View(order);
-        //}
-
         [HttpPost]
         public IActionResult Create(Order order)
         {
@@ -72,13 +59,46 @@ namespace E_CommerceWebsite.Controllers
                         Console.WriteLine($"Key: {state.Key}, Error: {error.ErrorMessage}");
                     }
                 }
-                _orderRepository.CreateOrder(order);
-                TempData["SuccessMessage"] = "Order placed successfully!";
-                return RedirectToAction("Create");
+                return View(order);
+            }
+            _orderRepository.CreateOrder(order);
+            TempData["SuccessMessage"] = "Order placed successfully!";
+            return RedirectToAction("Create");
+
+   
+        }
+
+        public IActionResult UserOrder()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+            {
+                TempData["ErrorMessage"] = "Please log in to view your orders.";
+                return RedirectToAction("Login", "User");
             }
 
-            return View(order);
+            var orders = _orderRepository.GetOrdersByUserId(userId.Value);
+            return View(orders);
         }
+        public IActionResult AllOrders()
+        {
+            List<Order> orders = _orderRepository.GetAllOrders();
+            return View(orders);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(int orderId, string status)
+        {
+            if (!string.IsNullOrEmpty(status))
+            {
+                _orderRepository.UpdateOrderStatus(orderId, status);
+                TempData["SuccessMessage"] = "Order status updated successfully!";
+            }
+
+            return RedirectToAction("AllOrders");
+        }
+
 
     }
 }

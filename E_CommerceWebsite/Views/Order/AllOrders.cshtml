@@ -1,0 +1,87 @@
+﻿@model List<E_CommerceWebsite.Models.Order>
+
+@{
+    ViewData["Title"] = "All Orders";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/OrderList.css" />
+<h2 class="page-title">All Orders</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="order-list-container">
+        @foreach (var order in Model)
+        {
+            <div class="order-card">
+                <div class="order-info">
+                    <p><strong>Order ID:</strong> @order.OrderId</p>
+                    <p><strong>User ID:</strong> @order.UserId</p>
+                    <p><strong>Username:</strong> @order.UserName</p>
+                    <p><strong>Address:</strong> @order.Address</p>
+                    <p><strong>Payment Method:</strong> @order.PaymentMethod</p>
+                    @* <p> *@
+                    @*     <strong>Status:</strong> *@
+                    @*     @if (order.Status == "Completed") *@
+                    @*     { *@
+                    @*         <span class="badge bg-success">@order.Status</span> *@
+                    @*     } *@
+                    @*     else if (order.Status == "Processing") *@
+                    @*     { *@
+                    @*         <span class="badge bg-warning text-dark">@order.Status</span> *@
+                    @*     } *@
+                    @*     else if (order.Status == "Cancelled") *@
+                    @*     { *@
+                    @*         <span class="badge bg-danger">@order.Status</span> *@
+                    @*     } *@
+                    @*     else *@
+                    @*     { *@
+                    @*         <span class="badge bg-secondary">@order.Status</span> *@
+                    @*     } *@
+                    @* </p> *@
+                    <p>
+                        <strong>Status:</strong>
+                        @if (order.Status == "Completed")
+                        {
+                            <span class="badge bg-success">@order.Status</span>
+                        }
+                        else if (order.Status == "Processing")
+                        {
+                            <span class="badge bg-warning">@order.Status</span>
+                        }
+                        else if (order.Status == "Shipping")
+                        {
+                            <span class="badge bg-primary">@order.Status</span>
+                        }
+                        else if (order.Status == "Cancelled")
+                        {
+                            <span class="badge bg-danger">@order.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@order.Status</span>
+                        }
+                    </p>
+
+                    <p><strong>Order Date:</strong> @order.CreatedAt.ToString("dd MMM yyyy")</p>
+
+                    <form asp-action="UpdateOrderStatus" asp-controller="Order" method="post" class="mt-2">
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <select name="status" class="form-select">
+                            <option value="Processing" selected="@((order.Status == "Processing") ? "selected" : null)">Processing</option>
+                            <option value="Shipping" selected="@((order.Status == "Shipping") ? "selected" : null)">Shipping</option>
+                            <option value="Delivering" selected="@((order.Status == "Delivering") ? "selected" : null)">Delivering</option>
+                            <option value="Completed" selected="@((order.Status == "Completed") ? "selected" : null)">Completed</option>
+                            <option value="Cancelled" selected="@((order.Status == "Cancelled") ? "selected" : null)">Cancelled</option>
+                        </select>
+                        <button type="submit" class="btn btn-success mt-2">Update Status</button>
+                    </form>
+
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">No orders found.</div>
+}

@@ -27,6 +27,8 @@ namespace E_CommerceWebsite.Models
       
         public List<OrderItem> OrderItems { get; set; }
 
+        public string UserName { get; set; }
+
         public Order()
         {
             Status = "Processing"; // Default value for Status

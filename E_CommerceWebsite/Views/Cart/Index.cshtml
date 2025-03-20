@@ -14,6 +14,19 @@
         <form asp-action="Create" asp-controller="Order" method="get">
             <button type="submit" class="checkout-btn">Proceed to Checkout</button>
         </form>
+        <br/>
+        @* <form asp-action="UserOrder" asp-controller="Order" method="get" class="mt-2"> *@
+        @*     <button type="submit" class="btn btn-outline-primary">Your Orders</button> *@
+        @* </form> *@
+        <form asp-action="UserOrder" asp-controller="Order" method="get" class="mt-2">
+            <button type="submit" class="btn"
+                    style="background-color: #ff9800; color: white; border-color: #ff9800;
+               padding: 12px 24px; font-size: 18px; border-radius: 8px;">
+                Your Orders
+            </button>
+        </form>
+
+
     </div>
 
    
