@@ -18,7 +18,7 @@ namespace E_CommerceWebsite.Models.Repository
             {
                 try
                 {
-                    using (SqlCommand command = new SqlCommand("sp_AddToCart", connection))
+                    using (SqlCommand command = new SqlCommand("sp_AddToCartItems", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@Quantity", cart.Quantity);
@@ -46,7 +46,7 @@ namespace E_CommerceWebsite.Models.Repository
             try
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand("sp_GetCartItems", connection))
+                using (SqlCommand command = new SqlCommand("sp_GetCartsItem", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@UserId", userId);
@@ -88,7 +88,7 @@ namespace E_CommerceWebsite.Models.Repository
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand("sp_RemoveCartItem", connection))
+                using (SqlCommand command = new SqlCommand("sp_DeleteCartItem", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@CartId", cartId);

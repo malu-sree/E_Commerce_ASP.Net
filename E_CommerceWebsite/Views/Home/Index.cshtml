@@ -4,24 +4,34 @@
 
 <h2>Welcome to My Store</h2>
 
+@* <div class="d-flex flex-column align-items-center justify-content-center vh-100"> *@
+@*     <h2 class="mb-4">Welcome to My Store</h2> *@
+
 @if (Context.Session.GetString("UserName") != null)
 {
     <p>Hello, @Context.Session.GetString("UserName")!</p>
 
     @if (Context.Session.GetString("UserRole") == "Admin")
     {
-        <a asp-controller="AdminDashboard" asp-action="Index" class="btn btn-primary">Go to Admin Dashboard</a>
+        @* <a asp-controller="AdminDashboard" asp-action="Index" class="btn btn-primary">Go to Admin Dashboard</a> *@
+        <a asp-controller="AdminDashboard" asp-action="Index"
+           style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 16px; transition: background-color 0.3s; cursor: pointer;">
+            Go to Admin Dashboard
+        </a>
+
     }
 
     else if (Context.Session.GetString("UserRole") == "User")
     {
-        <a asp-controller="UserDashboard" asp-action="Index" class="btn btn-info">Go to User Dashboard</a>
-        <a asp-controller="UserDashboard" asp-action="EditProfile" asp-route-id="@Context.Session.GetInt32("UserId")" class="btn btn-warning">Edit Profile</a>
+        <a asp-controller="UserDashboard" asp-action="Index" class="btn btn-info" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 16px; transition: background-color 0.3s; cursor: pointer;">Go to User Dashboard</a>
+        <br/>
+        <br/>
+        <a asp-controller="UserDashboard" asp-action="EditProfile" asp-route-id="@Context.Session.GetInt32("UserId")" class="btn btn-warning" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer;">Edit Profile</a>
     
     }
-    <a asp-controller="User" asp-action="Logout" class="btn btn-danger">Logout</a>
+    @* <a asp-controller="User" asp-action="Logout" class="btn btn-danger">Logout</a> *@
 }
 else
 {
-    <a asp-controller="User" asp-action="Login" class="btn btn-warning">Login</a>
+    <a asp-controller="User" asp-action="Login" style="background-color: #ffc107; color: black; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; cursor: pointer; margin-top: 20px;">Login</a>
 }

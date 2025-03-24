@@ -19,5 +19,8 @@ namespace E_CommerceWebsite.Models
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
         public decimal TotalPrice { get; set; }
+
+        public decimal Price { get; set; }  // Ensure this exists
+        public string ProductName { get; set; } // Ensure this exists
     }
 }

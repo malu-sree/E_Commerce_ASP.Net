@@ -19,25 +19,7 @@
                     <p><strong>Username:</strong> @order.UserName</p>
                     <p><strong>Address:</strong> @order.Address</p>
                     <p><strong>Payment Method:</strong> @order.PaymentMethod</p>
-                    @* <p> *@
-                    @*     <strong>Status:</strong> *@
-                    @*     @if (order.Status == "Completed") *@
-                    @*     { *@
-                    @*         <span class="badge bg-success">@order.Status</span> *@
-                    @*     } *@
-                    @*     else if (order.Status == "Processing") *@
-                    @*     { *@
-                    @*         <span class="badge bg-warning text-dark">@order.Status</span> *@
-                    @*     } *@
-                    @*     else if (order.Status == "Cancelled") *@
-                    @*     { *@
-                    @*         <span class="badge bg-danger">@order.Status</span> *@
-                    @*     } *@
-                    @*     else *@
-                    @*     { *@
-                    @*         <span class="badge bg-secondary">@order.Status</span> *@
-                    @*     } *@
-                    @* </p> *@
+                   
                     <p>
                         <strong>Status:</strong>
                         @if (order.Status == "Completed")

@@ -1,19 +1,20 @@
 ﻿@model E_CommerceWebsite.Models.Order
-@{
-    ViewData["Title"] = "Checkout";
-    Layout = "~/Views/Shared/MainLayout.cshtml";
-}
 
-<h1>Checkout</h1>
-<form asp-action="CreateOrder">
-    <input type="text" asp-for="Address" placeholder="Address" required />
-    <input type="text" asp-for="PaymentMethod" placeholder="Payment Method" required />
-
-    @* <h3>Cart Summary</h3> *@
-    @* @foreach (var item in Model.CartItem) *@
-    @* { *@
-    @*     <p>@item.ProductName - @item.Quantity x @item.Price</p> *@
-    @* } *@
-
-    <button type="submit">Place Order</button>
+<form asp-action="PlaceOrder" method="post">
+    <div>
+        <label>Address:</label>
+        <input asp-for="Address" required />
+    </div>
+    <div>
+        <label>Payment Method:</label>
+        <select asp-for="PaymentMethod">
+            <option value="Credit Card">Credit Card</option>
+            <option value="Cash on Delivery">Cash on Delivery</option>
+        </select>
+    </div>
+    <div>
+        <input type="hidden" asp-for="UserId" value="@User.Identity.Name" />
+        <button type="submit">Place Order</button>
+    </div>
 </form>
+

@@ -12,34 +12,157 @@ namespace E_CommerceWebsite.Models.Repository
             _connectionString = configuration.GetConnectionString("ECommerceDBConnection");
         }
 
-        public void AddOrderItems(int orderId, List<OrderItem> orderItems)
+        public int CreateOrder(Order order)
         {
+            int orderId = 0;
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                try
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("sp_CreatesOrder", connection))
                 {
-                    connection.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UserId", order.UserId);
+                    command.Parameters.AddWithValue("@Address", order.Address);
+                    command.Parameters.AddWithValue("@PaymentMethod", order.PaymentMethod);
+                    command.Parameters.AddWithValue("@Status", order.Status);
 
-                    foreach (var item in orderItems)
+                    // Capture the OrderId using OUTPUT parameter
+                    SqlParameter outputId = new SqlParameter("@OrderId", SqlDbType.Int)
                     {
-                        using (SqlCommand command = new SqlCommand("sp_AddOrderItem", connection))
-                        {
-                            command.CommandType = CommandType.StoredProcedure; 
-                            command.Parameters.AddWithValue("@OrderId", orderId);
-                            command.Parameters.AddWithValue("@ProductId", item.ProductId);
-                            command.Parameters.AddWithValue("@Quantity", item.Quantity);
-                            command.Parameters.AddWithValue("@Price", item.Price);
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(outputId);
 
-                            command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+
+                    // Get the generated order ID
+                    orderId = Convert.ToInt32(outputId.Value);
+                }
+            }
+
+            return orderId;
+        }
+
+        // Get Orders by UserId
+        public List<Order> GetOrdersByUserId(int userId)
+        {
+            List<Order> orders = new List<Order>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("sp_GetOrdersById", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UserId", userId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            orders.Add(new Order
+                            {
+                                OrderId = Convert.ToInt32(reader["orderId"]),
+                                UserId = Convert.ToInt32(reader["userId"]),
+                                Address = reader["address"].ToString(),
+                                PaymentMethod = reader["paymentMethod"].ToString(),
+                                Status = reader["status"].ToString(),
+                                CreatedAt = Convert.ToDateTime(reader["createdAt"])
+                            });
                         }
                     }
                 }
-                
-                finally
+            }
+
+            return orders;
+        }
+
+        // Get All Orders
+        public List<Order> GetAllOrders()
+        {
+            List<Order> orders = new List<Order>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("sp_GetAllOrders", connection))
                 {
-                    connection.Close(); // Ensure the connection is closed
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            orders.Add(new Order
+                            {
+                                OrderId = Convert.ToInt32(reader["OrderId"]),
+                                UserId = Convert.ToInt32(reader["UserId"]),
+                                Address = reader["Address"].ToString(),
+                                PaymentMethod = reader["PaymentMethod"].ToString(),
+                                Status = reader["Status"].ToString(),
+                                CreatedAt = Convert.ToDateTime(reader["CreatedAt"]),
+                                UserName = reader["Name"].ToString()
+                            });
+                        }
+                    }
                 }
             }
+
+            return orders;
+        }
+
+        // Update Order Status
+        public void UpdateOrderStatus(int orderId, string status)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_UpdateOrderStatus", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@OrderId", orderId);
+                    command.Parameters.AddWithValue("@Status", status);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        // Get Order Items by OrderId
+        public List<OrderItem> GetOrderItemsByOrderId(int orderId)
+        {
+            List<OrderItem> orderItems = new List<OrderItem>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("sp_GetOrderItemsByOrderId", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@OrderId", orderId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            orderItems.Add(new OrderItem
+                            {
+                                OrderItemId = Convert.ToInt32(reader["OrderItemId"]),
+                                OrderId = Convert.ToInt32(reader["OrderId"]),
+                                ProductId = Convert.ToInt32(reader["ProductId"]),
+                                Quantity = Convert.ToInt32(reader["Quantity"]),
+                                Price = Convert.ToDecimal(reader["Price"]),
+                                Name = reader["ProductName"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return orderItems;
         }
     }
 }
