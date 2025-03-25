@@ -26,7 +26,7 @@ namespace E_CommerceWebsite.Controllers
             {
                 TempData["ErrorMessage"] = "Please log in to place an order.";
                 return RedirectToAction("Login", "User");
-    }
+            }
 
             return View(new Order());
         }
@@ -63,7 +63,7 @@ namespace E_CommerceWebsite.Controllers
         //        ProductId = productId,
         //        Quantity = quantity,
         //        Price = price,
-        //        Name = selectedItem.ProductName // Extract product name from cart item
+        //        Name = selectedItem.ProductName ?? "Unknown Product"// Extract product name from cart item
         //    }
         //}
         //    };
@@ -110,24 +110,76 @@ namespace E_CommerceWebsite.Controllers
 
 
         }
+
         //[HttpPost]
-        //        public IActionResult CreateOrder(Order order)
+        //public IActionResult Create(Order order)
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+
+        //    if (userId == null)
+        //    {
+        //        TempData["ErrorMessage"] = "Please log in to place an order.";
+        //        return RedirectToAction("Login", "User");
+        //    }
+
+        //  
+        //    order.UserId = userId.Value;
+
+        //    
+        //    var cartId = HttpContext.Session.GetInt32("CartId");
+        //    if (cartId == null)
+        //    {
+        //        TempData["ErrorMessage"] = "Cart not found.";
+        //        return RedirectToAction("Index","Cart");
+        //    }
+        //    order.CartId = cartId.Value;
+
+        //    
+        //    Console.WriteLine($"UserId: {order.UserId}");
+        //    Console.WriteLine($"CartId: {order.CartId}");
+        //    Console.WriteLine($"Address: {order.Address}");
+        //    Console.WriteLine($"PaymentMethod: {order.PaymentMethod}");
+        //    Console.WriteLine($"Status: {order.Status}");
+        //    Console.WriteLine($"ModelState.IsValid: {ModelState.IsValid}");
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        foreach (var state in ModelState)
         //        {
-        //            if (ModelState.IsValid)
+        //            foreach (var error in state.Value.Errors)
         //            {
-        //                int orderId = _orderItemRepository.CreateOrder(order);
-        //                if (orderId > 0)
-        //                {
-        //                    TempData["Success"] = "Order created successfully!";
-        //                    return RedirectToAction("Create");
-        //                }
-        //                else
-        //                {
-        //                    TempData["Error"] = "Failed to create order.";
-        //                }
+        //                Console.WriteLine($"Key: {state.Key}, Error: {error.ErrorMessage}");
         //            }
+        //        }
+        //        return View(order);
+        //    }
+
+        //   
+        //    _orderRepository.CreateOrder(order);
+        //    TempData["SuccessMessage"] = "Order placed successfully!";
+        //    return RedirectToAction("Create");
+        //}
+
+
+        //[HttpPost]
+        //public IActionResult Create(Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        int orderId = _orderItemRepository.CreateOrder(order);
+        //        if (orderId > 0)
+        //        {
+        //            TempData["Success"] = "Order created successfully!";
+        //            ModelState.Clear();
         //            return View(order);
         //        }
+        //        else
+        //        {
+        //            TempData["Error"] = "Failed to create order.";
+        //        }
+        //    }
+        //    return View(order);
+        //}
 
 
         public IActionResult UserOrder()
@@ -183,13 +235,18 @@ namespace E_CommerceWebsite.Controllers
 
             return RedirectToAction("AllOrders");
         }
+
         //public IActionResult UpdateOrderStatus(int orderId, string status)
         //{
         //    _orderItemRepository.UpdateOrderStatus(orderId, status);
         //    TempData["Success"] = "Order status updated successfully!";
-        //    return RedirectToAction("GetOrdersByUserId", new { userId = 1 }); // Example userId
+        //    return RedirectToAction("GetOrdersByUserId", new { userId = 1 }); 
         //}
-
+        //public IActionResult Orders()
+        //{
+        //    var orders = _orderRepository.GetOrdersForAdmin();
+        //    return View(orders);
+        //}
 
     }
 }

@@ -11,10 +11,10 @@
     <div class="cart-summary">
         <p><strong>Total Amount to be paid:</strong> ₹@ViewBag.TotalCartPrice</p>
         @* <button class="checkout-btn">Proceed to Checkout</button> *@
-        <form asp-action="Create" asp-controller="Order" method="get">
-            <button type="submit" class="checkout-btn">Proceed to Checkout</button>
-        </form>
-        <br/>
+        @* <form asp-action="Create" asp-controller="Order" method="get"> *@
+        @*     <button type="submit" class="checkout-btn">Proceed to Checkout</button> *@
+        @* </form> *@
+        @* <br/> *@
         @* <form asp-action="UserOrder" asp-controller="Order" method="get" class="mt-2"> *@
         @*     <button type="submit" class="btn btn-outline-primary">Your Orders</button> *@
         @* </form> *@
@@ -50,14 +50,14 @@
                             </button>
                         </form>
 
-                        @* <form asp-action="Create" asp-controller="Order" method="get" style="margin-top: 5px;"> *@
-                        @*     <input type="hidden" name="productId" value="@item.ProductId" /> *@
-                        @*     <input type="hidden" name="quantity" value="@item.Quantity" /> *@
-                        @*     <input type="hidden" name="price" value="@item.Product.Price" /> *@
-                        @*     <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;"> *@
-                        @*         Buy Now *@
-                        @*     </button> *@
-                        @* </form> *@
+                         <form asp-action="Create" asp-controller="Order" method="get" style="margin-top: 5px;"> 
+                             <input type="hidden" name="productId" value="@item.ProductId" /> 
+                            <input type="hidden" name="quantity" value="@item.Quantity" /> 
+                           <input type="hidden" name="price" value="@item.Product.Price" /> 
+                            <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;"> 
+                                Buy Now 
+                            </button>
+                         </form> 
                     </div>
                 </div>
             }

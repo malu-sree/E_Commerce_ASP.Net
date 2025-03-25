@@ -34,6 +34,79 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
+
+        //public int CreateOrder(Order order)
+        //{
+        //    int orderId = 0;
+        //    Console.WriteLine($"CartId: {order.CartId}");
+
+        //    using (SqlConnection connection = new SqlConnection(_connectionString))
+        //    {
+        //        connection.Open();
+
+        //        using (SqlCommand command = new SqlCommand("sp_placingOrder", connection))
+        //        {
+        //            command.CommandType = CommandType.StoredProcedure;
+        //            command.Parameters.AddWithValue("@UserId", order.UserId);
+        //            command.Parameters.AddWithValue("@Address", order.Address);
+        //            command.Parameters.AddWithValue("@PaymentMethod", order.PaymentMethod);
+        //            command.Parameters.AddWithValue("@Status", order.Status);
+        //            command.Parameters.AddWithValue("@CartId", order.CartId);
+
+        //            SqlParameter outputId = new SqlParameter("@OrderId", SqlDbType.Int)
+        //            {
+        //                Direction = ParameterDirection.Output
+        //            };
+        //            command.Parameters.Add(outputId);
+
+        //            command.ExecuteNonQuery();
+
+        //            orderId = Convert.ToInt32(outputId.Value);
+        //        }
+        //    }
+
+        //    return orderId;
+        //}
+
+
+        //public List<OrderViewModel> GetOrdersForAdmin()
+        //{
+        //    var orders = new List<OrderViewModel>();
+
+        //    using (SqlConnection connection = new SqlConnection(_connectionString))
+        //    {
+        //        connection.Open();
+
+        //        using (SqlCommand command = new SqlCommand("sp_GetOrdersForAdmin", connection))
+        //        {
+        //            command.CommandType = CommandType.StoredProcedure;
+
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    orders.Add(new OrderViewModel
+        //                    {
+        //                        OrderId = Convert.ToInt32(reader["orderId"]),
+        //                        UserId = Convert.ToInt32(reader["userId"]),
+        //                        UserName = reader["UserName"].ToString(),
+        //                        Address = reader["address"].ToString(),
+        //                        PaymentMethod = reader["paymentMethod"].ToString(),
+        //                        Status = reader["status"].ToString(),
+        //                        CreatedAt = Convert.ToDateTime(reader["createdAt"]),
+        //                        ProductName = reader["productName"].ToString(),
+        //                        Quantity = Convert.ToInt32(reader["quantity"]),
+        //                        TotalPrice = Convert.ToDecimal(reader["TotalPrice"])
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return orders;
+        //}
+
+
         public List<Order> GetOrdersByUserId(int userId)
         {
             List<Order> orders = new List<Order>();

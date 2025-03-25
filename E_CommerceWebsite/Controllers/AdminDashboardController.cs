@@ -14,6 +14,7 @@ namespace E_CommerceWebsite.Controllers
 
         private readonly ProductRepository _productRepository;
         private readonly UserRepository _userRepository;
+
         public AdminDashboardController(ProductRepository productRepository, UserRepository userRepository)
         {
             _productRepository = productRepository;

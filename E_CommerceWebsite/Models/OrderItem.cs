@@ -19,7 +19,7 @@ namespace E_CommerceWebsite.Models
 
         public decimal Price { get; set; }
 
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public Order Order { get; set; }
 
     }

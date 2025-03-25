@@ -11,6 +11,7 @@ namespace E_CommerceWebsite.Models
         [Required]
         public int UserId { get; set; }
         public User User { get; set; }
+        public int CartId { get; set; }
 
         [Required]
         public string Address { get; set; }
@@ -24,8 +25,8 @@ namespace E_CommerceWebsite.Models
 
         public DateTime CreatedAt { get; set; }
 
-      
-        public List<OrderItem> OrderItems { get; set; }
+
+        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         public string UserName { get; set; }
 
@@ -33,6 +34,7 @@ namespace E_CommerceWebsite.Models
         {
             Status = "Processing"; // Default value for Status
             CreatedAt = DateTime.Now; // Default value for CreatedAt
+            OrderItems = new List<OrderItem>();
         }
 
 

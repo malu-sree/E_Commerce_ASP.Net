@@ -16,34 +16,41 @@ namespace E_CommerceWebsite.Models.Repository
         {
             int orderId = 0;
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-
-                using (SqlCommand command = new SqlCommand("sp_CreatesOrder", connection))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@UserId", order.UserId);
-                    command.Parameters.AddWithValue("@Address", order.Address);
-                    command.Parameters.AddWithValue("@PaymentMethod", order.PaymentMethod);
-                    command.Parameters.AddWithValue("@Status", order.Status);
+                    connection.Open();
 
-                    // Capture the OrderId using OUTPUT parameter
-                    SqlParameter outputId = new SqlParameter("@OrderId", SqlDbType.Int)
+                    using (SqlCommand command = new SqlCommand("sp_CreatesOrder", connection))
                     {
-                        Direction = ParameterDirection.Output
-                    };
-                    command.Parameters.Add(outputId);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserId", order.UserId);
+                        command.Parameters.AddWithValue("@Address", order.Address);
+                        command.Parameters.AddWithValue("@PaymentMethod", order.PaymentMethod);
+                        command.Parameters.AddWithValue("@Status", order.Status);
 
-                    command.ExecuteNonQuery();
+                        SqlParameter outputId = new SqlParameter("@OrderId", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        command.Parameters.Add(outputId);
 
-                    // Get the generated order ID
-                    orderId = Convert.ToInt32(outputId.Value);
+                        command.ExecuteNonQuery();
+
+                        orderId = Convert.ToInt32(outputId.Value);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                // Log it using a proper logging library if needed
             }
 
             return orderId;
         }
+
 
         // Get Orders by UserId
         public List<Order> GetOrdersByUserId(int userId)
