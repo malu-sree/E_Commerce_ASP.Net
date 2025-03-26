@@ -39,6 +39,23 @@
             <span class="text-danger">@Html.ValidationMessageFor(m => m.PaymentMethod)</span>
         </select>
     </div>
+    @* <div id="order-items-container"> *@
+    @*     @for (int i = 0; i < Model.OrderItems.Count; i++) *@
+    @*     { *@
+    @*         <div> *@
+    @*             <label>Product ID</label> *@
+    @*             <input asp-for="OrderItems[i].ProductId" required /> *@
+    @*         </div> *@
+    @*         <div> *@
+    @*             <label>Quantity</label> *@
+    @*             <input asp-for="OrderItems[i].Quantity" required /> *@
+    @*         </div> *@
+    @*         <div> *@
+    @*             <label>Price</label> *@
+    @*             <input asp-for="OrderItems[i].Price" required /> *@
+    @*         </div> *@
+    @*     } *@
+    @* </div> *@
 
     @* <button type="submit" class="btn btn-primary">Place Order</button> *@
     <button type="submit" class="btn btn-primary" style="background-color: orange; border-color: orange; color: white;">

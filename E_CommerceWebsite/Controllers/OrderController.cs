@@ -31,6 +31,8 @@ namespace E_CommerceWebsite.Controllers
             return View(new Order());
         }
 
+
+
         //[HttpGet]
         //public IActionResult Create(int productId, int quantity, decimal price)
         //{
@@ -74,6 +76,71 @@ namespace E_CommerceWebsite.Controllers
 
 
 
+        //[HttpPost]
+        //public IActionResult Create(Order order)
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+
+        //    if (userId == null)
+        //    {
+        //        TempData["ErrorMessage"] = "Please log in to place an order.";
+        //        return RedirectToAction("Login", "User");
+        //    }
+
+        //    order.UserId = userId.Value;
+
+        //    Console.WriteLine($"UserId: {order.UserId}");
+        //    Console.WriteLine($"Address: {order.Address}");
+        //    Console.WriteLine($"PaymentMethod: {order.PaymentMethod}");
+        //    Console.WriteLine($"Status: {order.Status}");
+        //    Console.WriteLine($"ModelState.IsValid: {ModelState.IsValid}");
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        foreach (var state in ModelState)
+        //        {
+        //            foreach (var error in state.Value.Errors)
+        //            {
+        //                Console.WriteLine($"Key: {state.Key}, Error: {error.ErrorMessage}");
+        //            }
+        //        }
+        //        return View(order);
+        //    }
+        //    _orderRepository.CreateOrder(order);
+        //    TempData["SuccessMessage"] = "Order placed successfully!";
+        //    return RedirectToAction("Create");
+
+
+        //}
+
+
+        //[HttpPost]
+        //public IActionResult Create(Order order)
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+
+        //    if (userId == null)
+        //    {
+        //        TempData["ErrorMessage"] = "Please log in to place an order.";
+        //        return RedirectToAction("Login", "User");
+        //    }
+
+        //    order.UserId = userId.Value;
+
+        //    int orderId = _orderRepository.CreateOrder(order);
+
+        //    if (orderId > 0)
+        //    {
+        //        TempData["SuccessMessage"] = "Order placed successfully!";
+        //        return RedirectToAction("Create");
+        //    }
+        //    else
+        //    {
+        //        TempData["ErrorMessage"] = "Failed to place order.";
+        //        return View(order);
+        //    }
+        //}
+
         [HttpPost]
         public IActionResult Create(Order order)
         {
@@ -87,29 +154,21 @@ namespace E_CommerceWebsite.Controllers
 
             order.UserId = userId.Value;
 
-            Console.WriteLine($"UserId: {order.UserId}");
-            Console.WriteLine($"Address: {order.Address}");
-            Console.WriteLine($"PaymentMethod: {order.PaymentMethod}");
-            Console.WriteLine($"Status: {order.Status}");
-            Console.WriteLine($"ModelState.IsValid: {ModelState.IsValid}");
+            int orderId = _orderRepository.CreateOrder(order);
 
-            if (ModelState.IsValid)
+            if (orderId > 0)
             {
-                foreach (var state in ModelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        Console.WriteLine($"Key: {state.Key}, Error: {error.ErrorMessage}");
-                    }
-                }
+                TempData["SuccessMessage"] = "Order placed successfully!";
+                return RedirectToAction("Create");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to place order.";
                 return View(order);
             }
-            _orderRepository.CreateOrder(order);
-            TempData["SuccessMessage"] = "Order placed successfully!";
-            return RedirectToAction("Create");
-
-
         }
+
+
 
         //[HttpPost]
         //public IActionResult Create(Order order)
