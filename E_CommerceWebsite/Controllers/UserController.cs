@@ -69,12 +69,12 @@ namespace E_CommerceWebsite.Controllers
                 var user = _userRepository.AuthenticateUser(email, password);
                 if (user != null) 
                 {
-//  This code is used for user authentication and authorization using cookies:
+/// This code is used for user authentication and authorization using cookies:
 
-//Claims – Stores user-specific data like name, email, and role.
-//ClaimsIdentity – Represents the user's identity based on the claims.
-//ClaimsPrincipal – Represents the authenticated user(identity +claims).
-//SignInAsync – Signs in the user by creating an authentication cookie, which allows the user to stay logged in across requests.
+///Claims – Stores user-specific data like name, email, and role.
+///ClaimsIdentity – Represents the user's identity based on the claims.
+///ClaimsPrincipal – Represents the authenticated user(identity +claims).
+///SignInAsync – Signs in the user by creating an authentication cookie, which allows the user to stay logged in across requests.
 
                     var claims = new List<Claim>
         {

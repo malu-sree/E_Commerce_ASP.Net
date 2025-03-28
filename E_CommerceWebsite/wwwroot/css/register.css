@@ -46,7 +46,7 @@ input, select, button {
     }
 
 button {
-    background-color: #28a745; /* Green color */
+    background-color: #ff6600;
     color: white;
     font-size: 16px;
     cursor: pointer;

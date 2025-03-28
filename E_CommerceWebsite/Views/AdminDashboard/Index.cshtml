@@ -4,15 +4,20 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
+<div style="text-align: center; margin-top: 20px;">
 <h2>Welcome, @ViewData["UserName"]!</h2>
 <p>This is the Admin Dashboard.</p>
+</div>
+<div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
 <a asp-controller="AdminDashboard" asp-action="AddProduct" class="btn btn-success" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; margin-right: 10px;">Add Product</a>
 <a asp-action="UserList" class="btn btn-info" style="background-color: #17a2b8; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; margin-right: 10px;">View Users</a>
 <a asp-action="AllOrders" asp-controller="Order" class="btn" style="background-color: #ffc107; color: black; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer;">
   
     View All Orders
 </a>
-<a asp-action="Orders" asp-controller="Order">Order Details</a>
+</div>
+
+@* <a asp-action="Orders" asp-controller="Order">Order Details</a> *@
 
 
 

@@ -29,7 +29,7 @@ namespace E_CommerceWebsite.Models.Repository
                         command.Parameters.AddWithValue("@Description", product.Description);
                         command.Parameters.AddWithValue("@Price", product.Price);
                         command.Parameters.AddWithValue("@Quantity", product.Quantity);
-                        command.Parameters.AddWithValue("@ProductPhoto", product.Image); // Storing as Base64
+                        command.Parameters.AddWithValue("@ProductPhoto", product.Image); 
 
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
