@@ -62,33 +62,6 @@
         Place Order
     </button>
 
-    @* <h4>Your Order</h4>  *@
-    @* <table class="table table-bordered"> *@
-    @*     <thead class="table-dark"> *@
-    @*         <tr> *@
-               
-    @*              <th>Quantity</th>  *@
-    @*              <th>Price</th>  *@
-    @*             <th>Total</th>  *@
-    @*          </tr> *@
-    @*     </thead> *@
-    @*     <tbody> *@
-    @*         @foreach (var item in Model.OrderItems) *@
-    @*         {  *@
-    @*             <tr>  *@
-                    
-    @*                 <td>@item.Quantity</td> *@
-    @*                 <td>@item.Price.ToString("C")</td>  *@
-    @*               <td>@(item.Quantity * item.Price)</td>  *@
-    @*             </tr> *@
-    @*         }  *@
-    @*      </tbody> *@
-    @*     <tfoot>  *@
-    @*          <tr> *@
-    @*             <td colspan="3" class="text-end"><strong>Total:</strong></td> *@
-    @*             <td><strong>@Model.OrderItems.Sum(i => i.Quantity * i.Price).ToString("C")</strong></td>  *@
-    @*       </tr> *@
-    @*     </tfoot> *@
-    @*  </table> *@
+   
 
 </form>

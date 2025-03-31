@@ -190,5 +190,50 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
+
+        public bool ReduceStock(int productId, int quantity)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand("sp_ReduceStock", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ProductId", productId);
+                        command.Parameters.AddWithValue("@Quantity", quantity);
+
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        public bool CheckStock(int productId, int quantity)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT Quantity FROM Products WHERE productId = @ProductId", connection))
+                {
+                    command.Parameters.AddWithValue("@ProductId", productId);
+                    connection.Open();
+
+                    int availableStock = Convert.ToInt32(command.ExecuteScalar());
+
+                    return availableStock >= quantity; 
+                }
+            }
+        }
+
+
     }
 }
