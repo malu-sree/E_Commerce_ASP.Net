@@ -24,52 +24,59 @@
 
 
 
-@using (Html.BeginForm("Register", "User", FormMethod.Post))
+@using (Html.BeginForm("Register", "User", FormMethod.Post, new { id = "registerForm" }))
 {
     <div class="form-group">
         @Html.LabelFor(model => model.Name)
-        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "Name" })
+        @* @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" }) *@
+        <span id="nameError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Email)
-        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "Email" })
+        @* @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" }) *@
+        <span id="emailError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.PhoneNumber)
-        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", id = "PhoneNumber" })
+        @* @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" }) *@
+        <span id="phoneError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Address)
-        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "Address" })
+        @* @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" }) *@
+        <span id="addressError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Password)
-        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "Password" })
+        @* @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" }) *@
+        <span id="passwordError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.ConfirmPassword)
-        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", id = "ConfirmPassword" })
+        @* @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" }) *@
+        <span id="confirmPasswordError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Role)
         @Html.DropDownListFor(model => model.Role, new List<SelectListItem>
     {
-    new SelectListItem { Text = "Admin", Value = "Admin" },
+    // new SelectListItem { Text = "Admin", Value = "Admin" },
     new SelectListItem { Text = "User", Value = "User" }
-    }, "Select Role", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+    }, "Select Role", new { @class = "form-control", id = "Role" })
+        @* @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" }) *@
+        <span id="roleError" class="text-danger"></span>
     </div>
 
     @* <button type="submit" class="btn btn-primary">Register</button> *@
@@ -98,4 +105,5 @@
 
 
 }
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/validation.js"></script>
