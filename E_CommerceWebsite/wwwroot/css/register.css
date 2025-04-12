@@ -75,6 +75,11 @@ button {
     color: #721c24;
 }
 
-.text-danger {
+span.text-danger {
+    color: red !important;
     font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
 }
+

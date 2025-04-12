@@ -1,11 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<link rel="stylesheet" href="~/css/home.css" />
+<div class="home-container">
+    <img src="~/images/fashion_cover.jpg" alt="Fashion Cover"  class="cover-image" />
 
 <h2>Welcome to My Store</h2>
 
-@* <div class="d-flex flex-column align-items-center justify-content-center vh-100"> *@
-@*     <h2 class="mb-4">Welcome to My Store</h2> *@
+
 
 @if (Context.Session.GetString("UserName") != null)
 {
@@ -35,3 +37,4 @@ else
 {
     <a asp-controller="User" asp-action="Login" style="background-color: #ffc107; color: black; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; cursor: pointer; margin-top: 20px;">Login</a>
 }
+</div>

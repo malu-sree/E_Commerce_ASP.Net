@@ -4,6 +4,15 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
+<style>
+    .error-message {
+        color: red;
+        font-size: 0.9rem;
+        margin-top: 4px;
+    }
+</style>
+
+
 <link rel="stylesheet" href="~/css/register.css" />
 
 <h1>SignUp Here</h1>
@@ -30,42 +39,42 @@
         @Html.LabelFor(model => model.Name)
         @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "Name" })
         @* @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" }) *@
-        <span id="nameError" class="text-danger"></span>
+        <span id="nameError" class="error-message"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Email)
         @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "Email" })
         @* @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" }) *@
-        <span id="emailError" class="text-danger"></span>
+        <span id="emailError" class="error-message"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.PhoneNumber)
         @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", id = "PhoneNumber" })
         @* @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" }) *@
-        <span id="phoneError" class="text-danger"></span>
+        <span id="phoneError" class="error-message"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Address)
         @Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "Address" })
         @* @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" }) *@
-        <span id="addressError" class="text-danger"></span>
+        <span id="addressError" class="error-message"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Password)
         @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "Password" })
         @* @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" }) *@
-        <span id="passwordError" class="text-danger"></span>
+        <span id="passwordError" class="error-message"></span>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.ConfirmPassword)
         @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", id = "ConfirmPassword" })
         @* @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" }) *@
-        <span id="confirmPasswordError" class="text-danger"></span>
+        <span id="confirmPasswordError" class="error-message"></span>
     </div>
 
     <div class="form-group">
@@ -76,7 +85,7 @@
     new SelectListItem { Text = "User", Value = "User" }
     }, "Select Role", new { @class = "form-control", id = "Role" })
         @* @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" }) *@
-        <span id="roleError" class="text-danger"></span>
+        <span id="roleError" class="error-message"></span>
     </div>
 
     @* <button type="submit" class="btn btn-primary">Register</button> *@

@@ -2,14 +2,19 @@
     $("#registerForm").submit(function (event) {
         let isValid = true;
 
-      
+
         let name = $("#Name").val().trim();
+        let nameRegex = /^[A-Za-z\s]+$/;
         if (name === "") {
             $("#nameError").text("Name is required.");
+            isValid = false;
+        } else if (!nameRegex.test(name)) {
+            $("#nameError").text("Name should only contain letters.");
             isValid = false;
         } else {
             $("#nameError").text("");
         }
+
 
         let email = $("#Email").val().trim();
         let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +40,7 @@
             $("#phoneError").text("");
         }
 
-      
+
         let address = $("#Address").val().trim();
         if (address === "") {
             $("#addressError").text("Address is required.");
@@ -44,7 +49,7 @@
             $("#addressError").text("");
         }
 
-     
+
         let password = $("#Password").val();
         if (password === "") {
             $("#passwordError").text("Password is required.");
@@ -56,7 +61,7 @@
             $("#passwordError").text("");
         }
 
-     
+
         let confirmPassword = $("#ConfirmPassword").val();
         if (confirmPassword === "") {
             $("#confirmPasswordError").text("Confirm Password is required.");
@@ -77,7 +82,10 @@
         }
 
         if (!isValid) {
-            event.preventDefault(); 
+            event.preventDefault();
         }
     });
+
+   
 });
+
