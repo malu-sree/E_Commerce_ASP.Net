@@ -1,10 +1,21 @@
 using E_CommerceWebsite.Models.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("Logs/myapp.log", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+// Replace default logging
+builder.Logging.ClearProviders();
+builder.Host.UseSerilog();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 
 
 // Add session support

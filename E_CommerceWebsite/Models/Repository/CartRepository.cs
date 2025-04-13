@@ -3,15 +3,25 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 namespace E_CommerceWebsite.Models.Repository
 {
+    /// <summary>
+    /// Repository class for managing cart-related operations.
+    /// </summary>
     public class CartRepository
     {
         private readonly string _connectionString;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CartRepository"/> class.
+        /// </summary>
+        /// <param name="configuration">The application configuration to retrieve connection string.</param>
         public CartRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("ECommerceDBConnection");
         }
-
+        /// <summary>
+        /// Adds a product to the user's cart.
+        /// </summary>
+        /// <param name="cart">The cart item to be added.</param>
+        /// <returns><c>true</c> if the item was added successfully; otherwise, <c>false</c>.</returns>
         public bool AddToCart(Cart cart)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -38,6 +48,12 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
+
+        /// <summary>
+        /// Retrieves all cart items for a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A list of <see cref="Cart"/> items.</returns>
         public List<Cart> GetCartItems(int userId)
         {
             List<Cart> cartItems = new List<Cart>();
@@ -82,6 +98,10 @@ namespace E_CommerceWebsite.Models.Repository
 
             return cartItems;
         }
+        /// <summary>
+        /// Removes a cart item based on its ID.
+        /// </summary>
+        /// <param name="cartId">The ID of the cart item to be removed.</param>
 
         public void RemoveCartItem(int cartId)
         {

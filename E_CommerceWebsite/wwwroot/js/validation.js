@@ -1,7 +1,19 @@
-﻿$(document).ready(function () {
+﻿/// <summary>
+/// jQuery ready function: Ensures the DOM is fully loaded before executing any validation logic.
+/// </summary>
+
+$(document).ready(function () {
+    /// <summary>
+    /// Handles client-side form validation on the registration form submit event.
+    /// Prevents form submission if validation fails.
+    /// </summary>
     $("#registerForm").submit(function (event) {
         let isValid = true;
 
+
+        /// <summary>
+        /// Validate Name: Required and must contain only alphabets and spaces.
+        /// </summary>
 
         let name = $("#Name").val().trim();
         let nameRegex = /^[A-Za-z\s]+$/;
@@ -15,7 +27,9 @@
             $("#nameError").text("");
         }
 
-
+        /// <summary>
+        /// Validate Email: Required and must follow a valid email pattern.
+        /// </summary>
         let email = $("#Email").val().trim();
         let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email === "") {
@@ -28,6 +42,11 @@
             $("#emailError").text("");
         }
 
+
+
+        /// <summary>
+        /// Validate Phone Number: Required and must be a 10-digit number starting with 6-9.
+        /// </summary>
         let phone = $("#PhoneNumber").val().trim();
         let phoneRegex = /^[6-9]\d{9}$/;
         if (phone === "") {
@@ -39,7 +58,9 @@
         } else {
             $("#phoneError").text("");
         }
-
+        /// <summary>
+        /// Validate Address: Required field.
+        /// </summary>
 
         let address = $("#Address").val().trim();
         if (address === "") {
@@ -48,7 +69,9 @@
         } else {
             $("#addressError").text("");
         }
-
+        /// <summary>
+        /// Validate Password: Required and must be at least 6 characters.
+        /// </summary>
 
         let password = $("#Password").val();
         if (password === "") {
@@ -60,7 +83,9 @@
         } else {
             $("#passwordError").text("");
         }
-
+        /// <summary>
+        /// Validate Confirm Password: Required and must match the password.
+        /// </summary>
 
         let confirmPassword = $("#ConfirmPassword").val();
         if (confirmPassword === "") {
@@ -73,13 +98,13 @@
             $("#confirmPasswordError").text("");
         }
 
-        let role = $("#Role").val();
-        if (role === "") {
-            $("#roleError").text("Please select a role.");
-            isValid = false;
-        } else {
-            $("#roleError").text("");
-        }
+        //let role = $("#Role").val();
+        //if (role === "") {
+        //    $("#roleError").text("Please select a role.");
+        //    isValid = false;
+        //} else {
+        //    $("#roleError").text("");
+        //}
 
         if (!isValid) {
             event.preventDefault();

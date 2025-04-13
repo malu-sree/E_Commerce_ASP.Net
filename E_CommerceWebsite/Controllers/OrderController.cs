@@ -12,6 +12,10 @@ namespace E_CommerceWebsite.Controllers
         private readonly OrderItemRepository _orderItemRepository;
         private readonly CartRepository _cartRepository;
         private readonly ProductRepository _productRepository;
+
+        /// <summary>
+        /// Initializes the OrderController with repository dependencies.
+        /// </summary>
         public OrderController(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CartRepository cartRepository, ProductRepository productRepository)
         {
             _orderRepository = orderRepository;
@@ -19,6 +23,9 @@ namespace E_CommerceWebsite.Controllers
             _cartRepository = cartRepository;
             _productRepository = productRepository;
         }
+        /// <summary>
+        /// Displays the order creation form for logged-in users.
+        /// </summary>
         [HttpGet]
         public IActionResult Create()
         {
@@ -35,7 +42,7 @@ namespace E_CommerceWebsite.Controllers
 
 
 
-      
+
 
 
 
@@ -130,6 +137,13 @@ namespace E_CommerceWebsite.Controllers
         //        return View(order);
         //    }
         //}
+
+
+        /// <summary>
+        /// Handles order creation with stock validation.
+        /// </summary>
+        /// <param name="order">Order data submitted from the form.</param>
+        /// <returns>Redirects to confirmation or re-displays form on failure.</returns>
 
         [HttpPost]
         public IActionResult Create(Order order)
@@ -229,8 +243,11 @@ namespace E_CommerceWebsite.Controllers
         //}
 
 
-        
 
+        /// <summary>
+        /// Displays all orders placed by the currently logged-in user.
+        /// </summary>
+        /// <returns>View with list of user's orders.</returns>
 
         public IActionResult UserOrder()
         {
@@ -246,16 +263,27 @@ namespace E_CommerceWebsite.Controllers
             return View(orders);
         }
 
-       
 
 
+
+        /// <summary>
+        /// Displays a list of all orders (Admin only).
+        /// </summary>
+        /// <returns>View with all orders.</returns>
         public IActionResult AllOrders()
         {
             List<Order> orders = _orderRepository.GetAllOrders();
             return View(orders);
         }
 
-      
+
+
+        /// <summary>
+        /// Updates the status of a specific order.
+        /// </summary>
+        /// <param name="orderId">The ID of the order to update.</param>
+        /// <param name="status">The new status to apply.</param>
+        /// <returns>Redirects to all orders list.</returns>
 
         [HttpPost]
         public IActionResult UpdateOrderStatus(int orderId, string status)

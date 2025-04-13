@@ -3,15 +3,25 @@ using Microsoft.Data.SqlClient;
 
 namespace E_CommerceWebsite.Models.Repository
 {
+    /// <summary>
+    /// Handles database operations related to Orders and Order Items.
+    /// </summary>
     public class OrderItemRepository
     {
         private readonly string _connectionString;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderItemRepository"/> class.
+        /// </summary>
+        /// <param name="configuration">Application configuration to access connection string.</param>
         public OrderItemRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("ECommerceDBConnection");
         }
-
+        /// <summary>
+        /// Creates a new order in the database using the stored procedure <c>sp_CreatesOrder</c>.
+        /// </summary>
+        /// <param name="order">The order to create.</param>
+        /// <returns>The ID of the created order.</returns>
         public int CreateOrder(Order order)
         {
             int orderId = 0;
@@ -45,14 +55,18 @@ namespace E_CommerceWebsite.Models.Repository
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-                // Log it using a proper logging library if needed
+               
             }
 
             return orderId;
         }
 
+        /// <summary>
+        /// Retrieves all orders for a specific user using <c>sp_GetOrdersById</c>.
+        /// </summary>
+        /// <param name="userId">The user ID to filter orders.</param>
+        /// <returns>List of orders for the given user.</returns>
 
-        // Get Orders by UserId
         public List<Order> GetOrdersByUserId(int userId)
         {
             List<Order> orders = new List<Order>();
@@ -86,7 +100,10 @@ namespace E_CommerceWebsite.Models.Repository
             return orders;
         }
 
-        // Get All Orders
+        /// <summary>
+        /// Retrieves all orders from the database using <c>sp_GetAllOrders</c>.
+        /// </summary>
+        /// <returns>List of all orders.</returns>
         public List<Order> GetAllOrders()
         {
             List<Order> orders = new List<Order>();
@@ -120,7 +137,11 @@ namespace E_CommerceWebsite.Models.Repository
             return orders;
         }
 
-        // Update Order Status
+        /// <summary>
+        /// Updates the status of an existing order using <c>sp_UpdateOrderStatus</c>.
+        /// </summary>
+        /// <param name="orderId">The ID of the order to update.</param>
+        /// <param name="status">The new status of the order.</param>
         public void UpdateOrderStatus(int orderId, string status)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -137,7 +158,12 @@ namespace E_CommerceWebsite.Models.Repository
             }
         }
 
-        // Get Order Items by OrderId
+
+        /// <summary>
+        /// Retrieves all order items for a given order ID using <c>sp_GetOrderItemsByOrderId</c>.
+        /// </summary>
+        /// <param name="orderId">The order ID to retrieve items for.</param>
+        /// <returns>List of order items.</returns>
         public List<OrderItem> GetOrderItemsByOrderId(int orderId)
         {
             List<OrderItem> orderItems = new List<OrderItem>();

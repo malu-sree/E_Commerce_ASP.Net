@@ -7,15 +7,26 @@ using System.Diagnostics.Eventing.Reader;
 
 namespace E_CommerceWebsite.Models.Repository
 {
+    /// <summary>
+    /// Repository class for managing product-related database operations.
+    /// </summary>
     public class ProductRepository
     {
-        private readonly string _connectionString;
 
+        private readonly string _connectionString;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductRepository"/> class with configuration.
+        /// </summary>
+        /// <param name="configuration">Application configuration to fetch the connection string.</param>
         public ProductRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("ECommerceDBConnection");
         }
-
+        /// <summary>
+        /// Adds a new product to the database.
+        /// </summary>
+        /// <param name="product">Product details to be added.</param>
+        /// <returns>True if product is added successfully; otherwise, false.</returns>
         public bool AddProduct(Product product)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -48,7 +59,10 @@ namespace E_CommerceWebsite.Models.Repository
             }
         }
 
-
+        /// <summary>
+        /// Retrieves a list of all products from the database.
+        /// </summary>
+        /// <returns>List of all products.</returns>
         public List<Product> GetAllProduct()
         {
             List<Product> products = new List<Product>();
@@ -90,7 +104,11 @@ namespace E_CommerceWebsite.Models.Repository
 
             return products;
         }
-
+        /// <summary>
+        /// Retrieves a product by its ID.
+        /// </summary>
+        /// <param name="productId">ID of the product to fetch.</param>
+        /// <returns>Product object if found; otherwise, null.</returns>
         public Product GetProductById(int productId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -129,6 +147,11 @@ namespace E_CommerceWebsite.Models.Repository
             }
             return null;
         }
+        /// <summary>
+        /// Updates an existing product in the database.
+        /// </summary>
+        /// <param name="product">Updated product details.</param>
+        /// <returns>True if the product is updated successfully; otherwise, false.</returns>
         public bool UpdateProduct(Product product)
         {
            using (SqlConnection connection=new SqlConnection(_connectionString))
@@ -165,7 +188,11 @@ namespace E_CommerceWebsite.Models.Repository
             }
 
         }
-
+        /// <summary>
+        /// Deletes a product from the database by its ID.
+        /// </summary>
+        /// <param name="productId">ID of the product to delete.</param>
+        /// <returns>True if the product is deleted successfully; otherwise, false.</returns>
         public bool DeleteProduct(int productId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -190,7 +217,12 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
-
+        /// <summary>
+        /// Reduces the stock of a product after a purchase.
+        /// </summary>
+        /// <param name="productId">ID of the product.</param>
+        /// <param name="quantity">Quantity to reduce.</param>
+        /// <returns>True if stock is reduced successfully; otherwise, false.</returns>
         public bool ReduceStock(int productId, int quantity)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -217,7 +249,12 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
-
+        /// <summary>
+        /// Checks if the required quantity of a product is available in stock.
+        /// </summary>
+        /// <param name="productId">ID of the product.</param>
+        /// <param name="quantity">Quantity to check for availability.</param>
+        /// <returns>True if sufficient stock is available; otherwise, false.</returns>
         public bool CheckStock(int productId, int quantity)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

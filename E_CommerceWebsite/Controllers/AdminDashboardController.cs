@@ -3,9 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using E_CommerceWebsite.Models.Repository;
 using E_CommerceWebsite.Models;
+using Serilog;
 
 namespace E_CommerceWebsite.Controllers
 {
+    /// <summary>
+    /// Controller responsible for admin dashboard functionalities such as managing products and users.
+    /// Access restricted to Admin role.
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class AdminDashboardController : Controller
     {
@@ -15,11 +20,21 @@ namespace E_CommerceWebsite.Controllers
         private readonly ProductRepository _productRepository;
         private readonly UserRepository _userRepository;
 
+
+        /// <summary>
+        /// Constructor for injecting required repositories.
+        /// </summary>
+        /// <param name="productRepository">Repository for product operations</param>
+        /// <param name="userRepository">Repository for user operations</param>
         public AdminDashboardController(ProductRepository productRepository, UserRepository userRepository)
         {
             _productRepository = productRepository;
             _userRepository = userRepository;
         }
+        /// <summary>
+        /// Displays the admin dashboard with a list of all products.
+        /// </summary>
+        /// <returns>Product list view</returns>
         public IActionResult Index()
         {
             var userName = HttpContext.Session.GetString("UserName");
@@ -28,11 +43,20 @@ namespace E_CommerceWebsite.Controllers
             List<Product> products = _productRepository.GetAllProduct();
             return View(products);
         }
-
+        /// <summary>
+        /// Displays the form to add a new product.
+        /// </summary>
+        /// <returns>Add product view</returns>
         public IActionResult AddProduct()
         {
             return View();
         }
+
+        /// <summary>
+        /// Handles POST request to add a new product.
+        /// </summary>
+        /// <param name="product">Product object containing details</param>
+        /// <returns>Redirects to product list or displays error</returns>
 
         [HttpPost]
         
@@ -40,6 +64,7 @@ namespace E_CommerceWebsite.Controllers
         {
             try
             {
+
                 if (!ModelState.IsValid)
                 {
                     return View(product);
@@ -60,24 +85,36 @@ namespace E_CommerceWebsite.Controllers
             catch (Exception ex)
             {
                 
-                Console.WriteLine($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
+                Log.Error(ex, "Error in AddProduct (POST) at {Time}", DateTime.Now);
 
-             
                 ViewBag.Error = "An unexpected error occurred while adding the product. Please try again.";
                 return View(product);
             }
         }
 
+        /// <summary>
+        /// Displays the edit form for a selected product by ID.
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <returns>Edit product view</returns>
         public IActionResult EditProduct(int id)
         {
             var product = _productRepository.GetProductById(id);
             if (product == null)
             {
+                Log.Warning("EditProduct GET: Product not found for ID {Id}", id);
                 return NotFound();
             }
             return View(product);
         }
 
+
+        /// <summary>
+        /// Handles POST request to update a product.
+        /// </summary>
+        /// <param name="product">Updated product details</param>
+        /// <returns>Redirects to product list or displays error</returns>
         [HttpPost]
         public IActionResult EditProduct(Product product)
         {
@@ -102,12 +139,20 @@ namespace E_CommerceWebsite.Controllers
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
+                Log.Error(ex, "Error occurred while updating product with ID {Id}", product.ProductId);
 
                 ViewBag.Error = "An unexpected error occurred while updating the product. Please try again.";
                 return View(product);
             }
         }
+
+
+        /// <summary>
+        /// Deletes a product by its ID.
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <returns>Redirects to product list</returns>
         [HttpPost]
         public IActionResult DeleteProduct(int id)
         {
@@ -125,17 +170,28 @@ namespace E_CommerceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
+                Log.Error(ex, "Error occurred while deleting product with ID {Id}", id);
                 TempData["ErrorMessage"] = "An unexpected error occurred while deleting the product. Please try again.";
             }
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Displays a list of all registered users.
+        /// </summary>
+        /// <returns>User list view</returns>
         public IActionResult UserList()
         {
             List<User> users = _userRepository.GetAllUsers();
             return View(users);
         }
 
+        /// <summary>
+        /// Deletes a user by their ID.
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns>Redirects to user list</returns>
         [HttpPost]
         public IActionResult DeleteUser(int id)
         {
@@ -153,7 +209,8 @@ namespace E_CommerceWebsite.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
+                Log.Error(ex, "Error occurred while deleting user with ID {Id}", id);
                 TempData["ErrorMessage"] = "An unexpected error occurred while deleting the user. Please try again.";
             }
             return RedirectToAction("UserList");

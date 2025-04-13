@@ -4,15 +4,25 @@ using E_CommerceWebsite.Models;
 
 namespace E_CommerceWebsite.Models.Repository
 {
+    /// <summary>
+    /// Repository class for handling user-related database operations.
+    /// </summary>
     public class UserRepository
     {
         private readonly string _connectionString;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserRepository"/> class.
+        /// </summary>
+        /// <param name="configuration">Configuration object to retrieve connection string.</param>
         public UserRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("ECommerceDBConnection");
         }
-
+        /// <summary>
+        /// Registers a new user in the database.
+        /// </summary>
+        /// <param name="user">The user object containing user details.</param>
+        /// <returns>True if registration is successful, otherwise false.</returns>
         public bool RegisterUser(User user)
         {
             
@@ -43,7 +53,12 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
-
+        /// <summary>
+        /// Authenticates a user with email and password.
+        /// </summary>
+        /// <param name="email">User email address.</param>
+        /// <param name="password">User password.</param>
+        /// <returns>User object if authenticated, otherwise null.</returns>
 
         public User AuthenticateUser(string email, string password)
         {
@@ -52,9 +67,9 @@ namespace E_CommerceWebsite.Models.Repository
             {
                 connection.Open();
                 string hashPassword = PasswordHelper.HashPassword(password);
-                string query = "SELECT * FROM Users WHERE Email = @Email AND Password = @Password";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("AuthenticateUser", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@Password", hashPassword);
 
@@ -83,7 +98,10 @@ namespace E_CommerceWebsite.Models.Repository
             }
             return null; 
         }
-
+        /// <summary>
+        /// Retrieves all users from the database.
+        /// </summary>
+        /// <returns>List of users.</returns>
         public List<User> GetAllUsers()
         {
             List<User> users = new List<User>();
@@ -122,7 +140,11 @@ namespace E_CommerceWebsite.Models.Repository
             }
             return users;
         }
-
+        /// <summary>
+        /// Deletes a user from the database based on the ID.
+        /// </summary>
+        /// <param name="id">User ID to delete.</param>
+        /// <returns>True if deleted successfully, otherwise false.</returns>
         public bool DeleteUser(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -147,7 +169,11 @@ namespace E_CommerceWebsite.Models.Repository
                 }
             }
         }
-
+        /// <summary>
+        /// Retrieves a user by ID from the database.
+        /// </summary>
+        /// <param name="id">User ID to retrieve.</param>
+        /// <returns>User object if found, otherwise null.</returns>
         public User GetUserById(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -186,7 +212,11 @@ namespace E_CommerceWebsite.Models.Repository
             }
             return null;
         }
-
+        /// <summary>
+        /// Updates user details in the database.
+        /// </summary>
+        /// <param name="user">The user object with updated details.</param>
+        /// <returns>True if update is successful, otherwise false.</returns>
         public bool UpdateUser(User user)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
