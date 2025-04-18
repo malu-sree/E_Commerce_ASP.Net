@@ -215,5 +215,55 @@ namespace E_CommerceWebsite.Controllers
             }
             return RedirectToAction("UserList");
         }
+        /// <summary>
+        /// Displays the Add Admin form.
+        /// </summary>
+        /// <returns>Returns the AddAdmin view.</returns>
+
+        [HttpGet]
+        public IActionResult AddAdmin()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Handles the POST request to add a new Admin user.
+        /// </summary>
+        /// <param name="user">The User object containing admin details from the form.</param>
+        /// <returns>
+        /// If successful, redirects to the Index action with a success message;  
+        /// otherwise, redisplays the form with error message.
+        /// </returns>
+
+        [HttpPost]
+        public IActionResult AddAdmin(User user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    user.Role = "Admin"; 
+                    bool isRegistered = _userRepository.RegisterUser(user);
+                    if (isRegistered)
+                    {
+                        TempData["SuccessMessage"] = "Admin added successfully!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Failed to add admin. Try again.";
+                    }
+                }
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine($"Error: {ex.Message}");
+                Log.Error(ex, "Error occurred while adding admin for email: {Email}", user.Email);
+                TempData["ErrorMessage"] = "An unexpected error occurred while adding the admin. Please try again.";
+                return View(user);
+            }
+        }
+
     }
 }

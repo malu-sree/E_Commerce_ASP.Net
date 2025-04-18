@@ -246,6 +246,25 @@ namespace E_CommerceWebsite.Models.Repository
             }
         }
 
+        public bool IsEmailExists(string email)
+        {
+            bool exists = false;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_CheckEmailExists", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Email", email);
+
+                    connection.Open();
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    exists = count > 0;
+                }
+            }
+            return exists;
+        }
+
+
 
     }
 }

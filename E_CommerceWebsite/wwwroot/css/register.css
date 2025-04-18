@@ -45,15 +45,15 @@ input, select, button {
         box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
     }
 
-button {
+/*button {
     background-color: #ff6600;
     color: white;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    padding: 12px; /* Increased padding */
+    padding: 12px;  Increased padding 
     border-radius: 6px;
-}
+}*/
 
     button:hover {
         background-color: #218838;

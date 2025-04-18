@@ -170,8 +170,20 @@ namespace E_CommerceWebsite.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); 
             return RedirectToAction("Index", "Home");
         }
+        /// <summary>
+        /// Checks if the given email is already registered in the system.
+        /// </summary>
+        /// <param name="email">The email address to check.</param>
+        /// <returns>
+        /// A JSON result indicating whether the email is available (true) or already taken (false).
+        /// </returns>
 
-
+        [HttpGet]
+        public JsonResult IsEmailAvailable(string email)
+        {
+            bool isTaken = _userRepository.IsEmailExists(email);
+            return Json(!isTaken); 
+        }
 
 
     }

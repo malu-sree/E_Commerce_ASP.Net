@@ -107,3 +107,63 @@
 }
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/validation.js"></script>
+
+<script>
+    $(document).ready(function () {
+        /// <summary>
+        /// Triggers when the email input field loses focus.
+        /// Sends a GET request to the server to check if the entered email already exists.
+        /// Displays an error message if the email is already taken.
+        /// </summary>
+        $("#Email").blur(function () {
+            var email = $(this).val().trim();
+            if (email !== "") {
+                $.ajax({
+                    url: '/User/IsEmailAvailable',
+                    type: 'GET',
+                    data: { email: email },
+                    success: function (response) {
+                        if (!response) {
+                            $("#emailError").text("Email already exists.");
+                        } else {
+                            $("#emailError").text("");
+                        }
+                    },
+                    error: function () {
+                        $("#emailError").text("Error checking email.");
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        /// <summary>
+        /// Validates Name field on blur: ensures no numbers are entered.
+        /// </summary>
+        $("#Name").blur(function () {
+            var name = $(this).val().trim();
+            var nameRegex = /^[A-Za-z\s]+$/;
+            if (name !== "" && !nameRegex.test(name)) {
+                $("#nameError").text("Name should contain only letters.");
+            } else {
+                $("#nameError").text("");
+            }
+        });
+
+        /// <summary>
+        /// Validates Phone Number field on blur: ensures only digits are entered.
+        /// </summary>
+        $("#PhoneNumber").blur(function () {
+            var phone = $(this).val().trim();
+            var phoneRegex = /^[0-9]+$/;
+            if (phone !== "" && !phoneRegex.test(phone)) {
+                $("#phoneError").text("Phone number should contain only digits.");
+            } else {
+                $("#phoneError").text("");
+            }
+        });
+    });
+</script>
