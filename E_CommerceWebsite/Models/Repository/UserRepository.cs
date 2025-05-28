@@ -13,7 +13,8 @@ namespace E_CommerceWebsite.Models.Repository
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository"/> class.
         /// </summary>
-        /// <param name="configuration">Configuration object to retrieve connection string.</param>
+        /// <param name="configuration">Configuration object to retrieve
+        /// connection string.</param>
         public UserRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("ECommerceDBConnection");

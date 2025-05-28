@@ -55,7 +55,7 @@ namespace E_CommerceWebsite.Controllers
 
                     if (string.IsNullOrEmpty(user.Role))
                     {
-                        user.Role = "User"; // Default role
+                        user.Role = "User"; 
                     }
                     bool isRegistered = _userRepository.RegisterUser(user);
                     if (isRegistered)
